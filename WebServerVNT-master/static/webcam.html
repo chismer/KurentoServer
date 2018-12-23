@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="bower_components/kurento-utils/js/kurento-utils.js"></script>
+	<script src="bower_components/adapter.js/adapter.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+    <title>Virtual NT</title>
+	<style>
+	 #video{
+		visibility:hidden;
+		position:absolute;
+		top:0px;
+		left:0px;
+	} 
+	#lienzo{
+		visibility:hidden;
+		position:absolute;
+		top:0px;
+		left:0px;
+	}
+	#canvasToBase64{
+		position:absolute;
+		top:0px;
+		left:0px;
+	}
+	img {
+		display: none;
+	}
+	img[src] {
+	   display: block;
+	}
+	#container {
+		width: 320px;
+		height:240px;
+		border: none;
+		margin: 0px auto;
+		text-align: center;
+		-webkit-transform: scaleX(-1);
+		transform: scaleX(-1);
+	}
+
+  </style>
+  </head>
+  <body>
+   
+   <div >
+		<video id="video"  autoplay loop ></video>
+		<canvas id="lienzo"></canvas>
+		<img id="canvasToBase64"  width="320px" height="240px">
+	</div>
+  </body>
+  <script src="js/commonCapturers.js"></script>   
+  <script src="js/commonWebCamCapturers.js"></script>  
+ <script src="js/webcam.js"></script>
+</html>

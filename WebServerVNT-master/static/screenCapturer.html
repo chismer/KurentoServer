@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="bower_components/kurento-utils/js/kurento-utils.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <title>Virtual NT</title>
+	<style>
+	#body{
+		border: none;		
+		margin-top: 0px;
+		margin-left: 0px;
+	}
+	#video{	
+		position:absolute;
+		visibility: hidden;
+		top:0px;
+		left:0px;
+	} 
+	#lienzo{
+		position:absolute;
+		visibility: hidden;
+		top:0px;
+		left:0px;
+	}
+	#canvasToBase64{
+		position:absolute;
+		top:0px;
+		left:0px;
+	}
+	img {
+		display: none;
+	}
+	img[src] {
+	   display: block;
+	}
+	#container {
+		width: 1280px;
+		height:720px;
+		border: none;
+		margin-top: 0px;
+		margin-left: 0px;
+	}
+
+  </style> 
+		
+        <!-- script src="https://cdn.webrtc-experiment.com/socket.io.js"> </script> -->
+         <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> 
+        <!-- <script src="https://cdn.webrtc-experiment.com/IceServersHandler.js"></script>   -->
+        <script src="https://cdn.webrtc-experiment.com/getScreenId.js"> </script>
+        <!-- <script src="https://cdn.webrtc-experiment.com/CodecsHandler.js"></script>
+        <script src="https://cdn.webrtc-experiment.com/BandwidthHandler.js"></script> -->
+		<script src="js/getScreenId.js"> </script>
+		<script src="js/DetectRTC.js"> </script>
+        <!-- <script src="js/screen.js"> </script>-->
+		
+  </head>
+  <body id="body">
+    <div>
+		<video id="video" autoplay loop ></video>	
+		<canvas id="lienzo"></canvas>	 	
+	 	<img id="canvasToBase64"  width="1280px" height="720px">	 
+	</div>
+  </body>
+  <script src="js/commonCapturers.js"></script>    
+  <script src="js/screenCapturer.js"></script>
+ 
+  <script>  
+ 
+  DetectRTC.load(function() {
+	DetectRTC.videoInputDevices.forEach(function(device) {
+            console.log(JSON.stringify(device));
+    });
+  })
+ 
+				
+				
+  </script>
+</html>

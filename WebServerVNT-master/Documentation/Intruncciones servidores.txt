@@ -1,0 +1,68 @@
+En AmazonKurento 
+----------------------------
+dominio --> ec2-18-191-252-24.us-east-2.compute.amazonaws.com
+
+1) Desactivar firewall -->  
+	sudo ufw stop
+2) comprobar que el servidor turn no ha cambiado de ip
+	La ip configurada de kurento esta en -->
+		vi /etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
+		
+		unos ejemplos de cadena turn seria: 
+			
+			Proveedor de Turn gratuito (Numb)
+			turnURL=ljimenez@virtualnt.com:numb2018@66.228.45.110:3478
+			
+			TURN Propio en AMAZON
+			turnURL=username1:key1@18.222.181.32:3478
+
+			
+		
+	para cambiarla hay que hacerlo con el comando sudo (super usuario)
+
+3) Reiniciar el serviciode kurento con --> 
+	sudo service kurento-media-server restart
+
+4) Iniicar aplicacion Web 
+
+	cd /home/ubuntu/WebVNT
+	sudo npm start &
+	
+	
+5) Comprobar que esta funcionando la aplicacion WebVNT
+	node
+	reboot
+	
+	
+	
+En AmazonTurn
+----------------------------
+dominio --> ec2-18-222-181-32.us-east-2.compute.amazonaws.com
+
+	Con reiniciar el servidor y parar el firewall deberia de funcionar
+	
+	1) Desactivar firewall -->  
+	sudo ufw stop
+	
+	
+	Url de comprobacion turn
+	
+		https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
+		
+		en Servidor poner 
+		
+		server 		--> turn:66.228.45.110:3478
+		user 		--> ljimenez@virtualnt.com
+		password 	--> numb2018@
+		
+		Al pulsar Gather Candidates --> al final del proceso deberia deponer Done
+
+		
+Comnandos importantes:
+----------------------------
+	sudo kill -9 (num proceso) , el numero de proceso se extare de hace un ps -aux
+	
+	sudo ps -aux | grep nombreApp , busqueda de procesos en la columan 2 aparece el id del proceso a utilizar en kill 
+	 
+	sudo npm start & , lanzar aplicacion de node.js
+	

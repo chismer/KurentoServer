@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Virtual NT</title>
+	
+	<script src="assets/plugins/jquery/jquery-1.11.3.js"></script>
+
+  </head>
+  <body >
+   
+   <div id="stateTranscription" style="display:none;font-family:Arial Bold;font-size:76px;">
+   
+	
+		 <!-- <font color="red">Estado: </font> <font size="20" color="black"> No hay persona recibiendo transcripcion </font> -->
+   </div>
+	
+		
+   <div id ="textTranscription" style="font-family:Arial Bold;font-size:24px;color:black;">
+		
+	</div>
+  </body>
+ <script src="js/transcription.js"></script>
+ <script>
+ 
+	function iniciarDictado(){
+		startDictation("es-ES");
+	}
+	function finalizarDictado(){
+		stopDictation();
+	}
+	
+	function enviar(message) {
+		sendMessage(message);
+	}
+	
+	if ('webkitSpeechRecognition' in window) {
+		initEnviromentSpeechRecognition();
+	}
+	
+	
+			
+	
+			/*var final_transcript = '';
+			var actual_transcript = '';
+			var recognizing = false;
+			var dictando = false;
+			var texto_en_dictado  = '';
+			var isCommandInitiateSpeech = false;
+			var isCommandFinalSpeech = false;
+			
+			if ('webkitSpeechRecognition' in window) {
+
+			  var recognition = new webkitSpeechRecognition();
+
+			  recognition.continuous = true;
+			  recognition.interimResults = true;
+
+			  recognition.onstart = function() {
+				recognizing = true;
+				console.log("Inicio reconocimiento");
+			  };
+			  
+			  recognition.onsoundstart = function() {
+				console.log("Inicio sonido");
+			  };
+			  recognition.onsoundend = function() {
+				console.log("Final sonido");
+			  };
+			  
+			  recognition.onboundary= function() {
+				console.log("Boundary");
+			  };
+
+			  recognition.onerror = function(event) {
+				console.log(event.error);
+			  };
+
+			  recognition.onend = function() {
+				recognizing = false;
+				console.log("End of recognition");
+			  };
+
+			  recognition.onresult = function(event) {
+				var interim_transcript = '';
+				for (var i = event.resultIndex; i < event.results.length; ++i) {
+					if (event.results[i].isFinal) {
+						final_transcript += event.results[i][0].transcript;
+						texto_en_dictado += parseLineTranscription(final_transcript);
+						console.log("********************");
+						console.log("Dictado con finalizacion " + texto_en_dictado );
+						console.log("********************");
+					} else {
+						interim_transcript += event.results[i][0].transcript;
+						if (isActiveDictation(interim_transcript)){
+							$('#textTranscription').text(texto_en_dictado + eliminateCommands(interim_transcript));
+						}
+						
+					}
+				}
+			  };
+			}
+
+			var two_line = /\n\n/g;
+			var one_line = /\n/g;
+			function linebreak(s) {
+			  return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+			}
+				
+				
+			function isActiveDictation(pText) {
+				var posLastInitialDictation = pText.toLowerCase().lastIndexOf("abrir dictado");
+				var posLastFinalDictation = pText.toLowerCase().lastIndexOf("cerrar dictado");
+				if (posLastInitialDictation> posLastFinalDictation)
+				{
+					return true;
+				}
+			}
+			
+			
+			function eliminateCommands(pText) {
+				var textToReturn = pText;
+				if (pText.toLowerCase().lastIndexOf("abrir dictado")!=-1 ){
+					 var pos = textToReturn.indexOf("abrir dictado");
+					 console.log("la posiciom de  abrir dictado es:" + pos)
+					 if (pos != -1){
+						textToReturn = pText.substring(pos + 13,textToReturn.length);
+					 }
+				}
+				
+				if (pText.toLowerCase().lastIndexOf("cerrar dictado" )!=-1){
+					 var pos = textToReturn.indexOf("cerrar dictado");
+					  console.log("la posiciom de  cerrar dictado es:" + pos)
+					 if (pos != -1){
+						textToReturn = pText.substring(1,textToReturn.length - 14);
+					 }
+				}
+				
+				//console.log(" ---- eliminateCommands " + textToReturn);
+				return textToReturn;
+			}
+			
+			function parseLineTranscription(pText) {
+				console.log("parseLineTranscription= " +pText);
+				var posInitialDictation = pText.toLowerCase().indexOf("abrir dictado");
+				var posFinalDictation = pText.toLowerCase().indexOf("cerrar dictado");
+				console.log("posInitialDictation=" + posInitialDictation);
+				console.log("posFinalDictation=" + posFinalDictation);
+				
+				// inf not init and not final , retrun complete
+				if (posInitialDictation == -1 && posFinalDictation == -1){
+					return pText;
+				}
+				// If not initial but yes final
+				if (posInitialDictation == -1 && posFinalDictation != -1){
+					var parte = pText.substr(posFinalDictation + 14,pText.length - (posFinalDictation + 14));
+					console.log("Only posFinal = "+ parte)
+					return parte;
+				}
+
+				if (posInitialDictation != -1 && posFinalDictation == -1){
+					return pText.substr(posInitialDictation + 13,pText.length - (posFinalDictation  + 13) );
+				}
+				
+				// Text from initial
+				var parte1 =  pText.substr(posInitialDictation + 13, pText.length - (pText.length - posFinalDictation ) -  (posInitialDictation + 13));
+				console.log("parte 1= " +parte1);
+
+				if (posInitialDictation<posFinalDictation)
+				{	
+					var parte2 = pText.substr(posFinalDictation , pText.length - (posFinalDictation ) );
+					console.log("parte 2= " +parte2);
+					//return  parte1 + parseLineTranscription(parte2);
+				}
+				
+				return "";
+				
+			}
+			function capitalize(s) {
+			  return s.replace(s.substr(0,1), function(m) { return m.toUpperCase(); });
+			}
+
+			function startDictation(event) {
+			  if (recognizing) {
+				recognition.stop();
+				return;
+			  }
+			  final_transcript = '';
+			  recognition.lang = 'es-ES';
+			  recognition.start();
+			}
+			
+			parseLineTranscription("1 2 3 abrir dictado 4 5 6 cerrar dictado 789");*/
+			
+ </script>
+</html>
