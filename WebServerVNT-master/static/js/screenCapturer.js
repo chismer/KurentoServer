@@ -31,7 +31,7 @@ var pGreen=-1;
 var pBlue=-1;
 var pAlpha=-1;
 
-var timeLoop =5000;
+var timeLoop =1;
 var maxFrameRate  = 1;
 
 var nameFileContourn ="";
