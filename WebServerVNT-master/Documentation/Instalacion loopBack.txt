@@ -1,4 +1,0 @@
-1.- copiar fichero "libeay32.lib" en la ruta "C:\OpenSSL-Win64\lib"
-2.- ejecutar comando "npm install --global --production windows-build-tools"
-3.- crear variable de entros path con la ruta "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\v140"
-4.- instalar loopback con el comando "npm install -g loopback-cli"
