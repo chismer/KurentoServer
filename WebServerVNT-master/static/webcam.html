@@ -32,26 +32,24 @@
 	   display: block;
 	}
 	#container {
-		width: 320px;
-		height:240px;
+		width: 640px;
+		height: 480px;
 		border: none;
 		margin: 0px auto;
 		text-align: center;
-		-webkit-transform: scaleX(-1);
-		transform: scaleX(-1);
+
 	}
 
   </style>
   </head>
-  <body>
-   
-   <div >
-		<video id="video"  autoplay loop ></video>
+  <body>   
+	<div>
+		<video id="video"  autoplay loop></video>
 		<canvas id="lienzo"></canvas>
-		<img id="canvasToBase64"  width="320px" height="240px">
+		<img id="canvasToBase64"  width="640px" height="480px">
 	</div>
   </body>
   <script src="js/commonCapturers.js"></script>   
   <script src="js/commonWebCamCapturers.js"></script>  
- <script src="js/webcam.js"></script>
+ <script src="js/webcamTraining.js"></script>
 </html>
