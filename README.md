@@ -1,6 +1,10 @@
 # KurentoServer
 
-INSTALL ALL:
+INSTALL KURENTO:
+
+-https://doc-kurento.readthedocs.io/en/6.9.0/user/installation.html#local-installation
+
+INSTALL SERVER:
 
 -sudo npm install
 -sudo npm install lodash
