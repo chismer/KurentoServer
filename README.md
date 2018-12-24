@@ -25,8 +25,9 @@ TRANSLATION :
 
 -https://[ip]/translation.html?idRoomPresenter=[name]
 
--https://[ip]/translation.html?idRoomViewer=[name]&translate=[language]
+-https://[ip]/translation.html?idRoomViewer=[name]&translate=[languageCode]
 
+[laguageCode] = https://ctrlq.org/code/19899-google-translate-languages
 
 WEBRTC :
 
