@@ -11,7 +11,7 @@ INSTALL SERVER:
 -sudo npm install request-promise
 
  
-STARTKURENTO:
+START KURENTO:
 
 -sudo service kurento-media-server start
 
